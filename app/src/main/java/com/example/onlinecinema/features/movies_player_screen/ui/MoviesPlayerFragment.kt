@@ -22,7 +22,7 @@ class MoviesPlayerFragment : Fragment(R.layout.fragment_movies_player) {
     companion object {
         private const val MOVIE_KEY = "movie"
         fun newInstance(movie: MoviesDomainModel) = MoviesPlayerFragment().apply {
-            arguments = bundleOf(Pair(MOVIE_KEY, movie))
+            arguments = bundleOf(MOVIE_KEY to movie)
         }
     }
 
@@ -32,17 +32,21 @@ class MoviesPlayerFragment : Fragment(R.layout.fragment_movies_player) {
 
 
     private fun initializePlayer() {
-        Log.d("VIDEVA", movie.video)
-        exoPlayer = ExoPlayer.Builder(requireContext()).build().apply {
-            viewBinding.pvMoviePlayer.player = this
-            setMediaSource(buildMediaSource())
-            playWhenReady = true
-            prepare()
+//        Log.d("VIDEVA", movie.trailer)
+        if (movie.trailer != null) {
+            Log.d("VIDEVA", movie.trailer!!)
+
+            exoPlayer = ExoPlayer.Builder(requireContext()).build().apply {
+                viewBinding.pvMoviePlayer.player = this
+                setMediaSource(buildMediaSource())
+                playWhenReady = true
+                prepare()
+            }
         }
     }
 
     private fun buildMediaSource() = ProgressiveMediaSource.Factory(DefaultHttpDataSource.Factory())
-        .createMediaSource(MediaItem.fromUri(movie.video))
+        .createMediaSource(MediaItem.fromUri(movie.trailer!!))
 
 
     public override fun onStart() {

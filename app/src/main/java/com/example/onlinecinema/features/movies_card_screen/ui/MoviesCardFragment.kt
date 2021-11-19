@@ -7,11 +7,9 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.onlinecinema.R
 import com.example.onlinecinema.base.loadImage
-import com.example.onlinecinema.data.api.model.Genres
 import com.example.onlinecinema.databinding.FragmentMoviesCardBinding
 import com.example.onlinecinema.domain.model.MoviesDomainModel
 import com.example.onlinecinema.features.movies_player_screen.ui.MoviesPlayerFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MoviesCardFragment : Fragment(R.layout.fragment_movies_card) {
 
@@ -20,7 +18,7 @@ class MoviesCardFragment : Fragment(R.layout.fragment_movies_card) {
     companion object {
         private const val MOVIE_KEY = "movie"
         fun newInstance(movie: MoviesDomainModel) = MoviesCardFragment().apply {
-            arguments = bundleOf(Pair(MOVIE_KEY, movie))
+            arguments = bundleOf(MOVIE_KEY to movie)
         }
     }
 
@@ -32,13 +30,17 @@ class MoviesCardFragment : Fragment(R.layout.fragment_movies_card) {
         super.onViewCreated(view, savedInstanceState)
 
         viewBinding.apply {
-            ivCard.loadImage(movie.posterPath)
+            ivCard.loadImage(movie.poster)
             tvCardGenres.text =
-                movie.genres.joinToString(separator = ", ", transform = { it -> it.name })
-            tvCardOverview.text = movie.overview
-            tvCardReleaseDate.text = movie.releaseDate
-            tvCardTitle.text = movie.title
-            tvCardVotes.text = movie.voteAverage.toString()
+                movie.genres?.joinToString(separator = ", ")
+            tvCardCountries.text = movie.countries?.joinToString(separator = ", ")
+            tvCardDescription.text = movie.description
+            tvCardPremierRussia.text = movie.premiere_russia
+            tvCardPremierWorld.text = movie.premiere_world
+            tvCardRating.text = movie.rating
+            tvCardTitleAlternative.text = movie.title_alternative
+            tvCardYear.text = movie.year.toString()
+            tbCardTitle.title = movie.title
 
             fabCard.setOnClickListener {
                 parentFragmentManager.beginTransaction()

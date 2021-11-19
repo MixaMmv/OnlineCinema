@@ -5,4 +5,5 @@ import com.example.onlinecinema.domain.model.MoviesDomainModel
 
 interface MoviesRepository {
     suspend fun getMovies(): List<MoviesDomainModel>
+//    suspend fun getMoviesLocal(): List<MoviesDomainModel>
 }

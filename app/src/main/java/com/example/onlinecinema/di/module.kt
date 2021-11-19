@@ -4,22 +4,30 @@ import com.example.onlinecinema.data.api.MoviesApi
 import com.example.onlinecinema.data.api.MoviesRemoteSource
 import com.example.onlinecinema.data.api.MoviesRepository
 import com.example.onlinecinema.data.api.MoviesRepositoryImpl
+import com.example.onlinecinema.data.api.local.MoviesDAO
 import com.example.onlinecinema.domain.MoviesInteractor
 import com.example.onlinecinema.features.movies_list_screen.ui.MoviesListViewModel
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
-const val BASE_URL = "https://gist.githubusercontent.com/LukyanovAnatoliy/"
-//eca5141dedc79751b3d0b339649e06a3/raw/38f9419762adf27c34a3f052733b296385b6aa8d/
+//GsonBuilder().setLenient().create()
+
+//const val BASE_URL = "https://gist.githubusercontent.com/LukyanovAnatoliy/"
+const val BASE_URL = "https://api.kinopoisk.cloud/"
+
 val appModule = module {
 
     single<OkHttpClient> {
-        OkHttpClient.Builder().build()
+        OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {HttpLoggingInterceptor.Level.BODY}).build()
     }
+
 
     single<Retrofit> {
         Retrofit.Builder()
@@ -40,6 +48,7 @@ val appModule = module {
     single<MoviesRepository> {
         MoviesRepositoryImpl(get<MoviesRemoteSource>())
     }
+
 
     single<MoviesInteractor> {
         MoviesInteractor(get<MoviesRepository>())

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.onlinecinema.R
@@ -17,6 +18,9 @@ class MoviesAdapter(
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.ivMovieCard)
+        val title: TextView = view.findViewById(R.id.tvTitle)
+        val genre: TextView = view.findViewById(R.id.tvGenre)
+        val rating: TextView = view.findViewById(R.id.tvRating)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,7 +29,11 @@ class MoviesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Glide.with(holder.itemView).load(movies[position].posterPath).into(holder.image)
+
+        Glide.with(holder.itemView).load(movies[position].poster).into(holder.image)
+        holder.title.text = movies[position].title
+        holder.genre.text = movies[position].genres?.get(0) ?: ""
+        holder.rating.text = movies[position].rating
 
         holder.itemView.setOnClickListener{
             onCardClick(movies[position])
@@ -40,3 +48,4 @@ class MoviesAdapter(
     }
 
 }
+
