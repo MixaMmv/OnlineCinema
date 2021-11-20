@@ -96,4 +96,11 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="CustomToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <!-- HERE ARE THE CHANGES - Change color of different texts -->
+        <item name="android:textColorPrimary">@color/white_100</item>
+        <item name="colorControlNormal">@color/white_100</item>
+    </style>
+
 </resources>

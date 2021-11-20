@@ -9,7 +9,6 @@ import com.example.onlinecinema.databinding.FragmentMoviesPlayerBinding
 import com.example.onlinecinema.domain.model.MoviesDomainModel
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.util.Util
@@ -32,39 +31,38 @@ class MoviesPlayerFragment : Fragment(R.layout.fragment_movies_player) {
 
 
     private fun initializePlayer() {
-
-            Log.d("VIDEVA", movie.trailer!!)
-            exoPlayer = ExoPlayer.Builder(requireContext()).build().apply {
-                viewBinding.pvMoviePlayer.player = this
-                setMediaSource(buildMediaSource())
-                playWhenReady = true
-                prepare()
-            }
+        Log.d("VIDEVA", movie.trailer!!)
+        exoPlayer = ExoPlayer.Builder(requireContext()).build().apply {
+            viewBinding.pvMoviePlayer.player = this
+            setMediaSource(buildMediaSource())
+            playWhenReady = true
+            prepare()
+        }
     }
 
     private fun buildMediaSource() = ProgressiveMediaSource.Factory(DefaultHttpDataSource.Factory())
         .createMediaSource(MediaItem.fromUri("https://www.youtube.com/embed/5snjgB9PO48"))
+//    http://techslides.com/demos/sample-videos/small.mp4
 
-
-    public override fun onStart() {
+    override fun onStart() {
         super.onStart()
 
         if (Util.SDK_INT > 23) initializePlayer()
     }
 
-    public override fun onResume() {
+    override fun onResume() {
         super.onResume()
 
         if (Util.SDK_INT <= 23) initializePlayer()
     }
 
-    public override fun onPause() {
+    override fun onPause() {
         super.onPause()
 
         if (Util.SDK_INT <= 23) releasePlayer()
     }
 
-    public override fun onStop() {
+    override fun onStop() {
         super.onStop()
 
         if (Util.SDK_INT > 23) releasePlayer()
@@ -77,6 +75,25 @@ class MoviesPlayerFragment : Fragment(R.layout.fragment_movies_player) {
         exoPlayer!!.release()
         exoPlayer = null
     }
+
+
+
+
+
+//    class extractYoutubeUrl(con: Context) : YouTubeExtractor(con) {
+//
+//        @JvmName("onExtractionComplete1")
+//        fun onExtractionComplete(ytFile: SparseArray<YtFile>, videoMeta: VideoMeta) {}
+//
+//
+//        override fun onExtractionComplete(ytFile: SparseArray<YtFile>?, videoMeta: VideoMeta?) {
+//            if (ytFile != null) {
+//                val downloadUrl = ytFile.get(17)?.url ?: ""
+//            }
+//        }
+//    }
+
+
 
 
 }

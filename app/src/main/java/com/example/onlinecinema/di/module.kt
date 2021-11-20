@@ -6,11 +6,8 @@ import com.example.onlinecinema.data.api.MoviesApi
 import com.example.onlinecinema.data.api.MoviesRemoteSource
 import com.example.onlinecinema.data.api.MoviesRepository
 import com.example.onlinecinema.data.api.MoviesRepositoryImpl
-import com.example.onlinecinema.data.api.local.MoviesDAO
 import com.example.onlinecinema.domain.MoviesInteractor
 import com.example.onlinecinema.features.movies_list_screen.ui.MoviesListViewModel
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext

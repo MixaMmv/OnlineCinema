@@ -40,8 +40,8 @@ class MoviesCardFragment : Fragment(R.layout.fragment_movies_card) {
             tvCardRating.text = movie.rating
             tvCardTitleAlternative.text = movie.title_alternative
             tvCardYear.text = movie.year.toString()
-//            tbCardTitle.title = movie.title
-            tbCardTitle2.title = movie.title
+            tbCardTitle.title = movie.title
+//            tbCardTitle2.text = movie.title
 
             fabCard.setOnClickListener {
                 parentFragmentManager.beginTransaction()
