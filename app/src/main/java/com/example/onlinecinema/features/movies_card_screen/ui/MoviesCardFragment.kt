@@ -29,7 +29,7 @@ class MoviesCardFragment : Fragment(R.layout.fragment_movies_card) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewBinding.apply {
+        with(viewBinding) {
             ivCard.loadImage(movie.poster)
             tvCardGenres.text =
                 movie.genres?.joinToString(separator = ", ")
@@ -40,7 +40,8 @@ class MoviesCardFragment : Fragment(R.layout.fragment_movies_card) {
             tvCardRating.text = movie.rating
             tvCardTitleAlternative.text = movie.title_alternative
             tvCardYear.text = movie.year.toString()
-            tbCardTitle.title = movie.title
+//            tbCardTitle.title = movie.title
+            tbCardTitle2.title = movie.title
 
             fabCard.setOnClickListener {
                 parentFragmentManager.beginTransaction()

@@ -32,21 +32,18 @@ class MoviesPlayerFragment : Fragment(R.layout.fragment_movies_player) {
 
 
     private fun initializePlayer() {
-//        Log.d("VIDEVA", movie.trailer)
-        if (movie.trailer != null) {
-            Log.d("VIDEVA", movie.trailer!!)
 
+            Log.d("VIDEVA", movie.trailer!!)
             exoPlayer = ExoPlayer.Builder(requireContext()).build().apply {
                 viewBinding.pvMoviePlayer.player = this
                 setMediaSource(buildMediaSource())
                 playWhenReady = true
                 prepare()
             }
-        }
     }
 
     private fun buildMediaSource() = ProgressiveMediaSource.Factory(DefaultHttpDataSource.Factory())
-        .createMediaSource(MediaItem.fromUri(movie.trailer!!))
+        .createMediaSource(MediaItem.fromUri("https://www.youtube.com/embed/5snjgB9PO48"))
 
 
     public override fun onStart() {

@@ -17,6 +17,7 @@ import com.example.onlinecinema.databinding.FragmentMoviesListBinding
 import com.example.onlinecinema.features.movies_card_screen.ui.MoviesCardFragment
 import com.example.onlinecinema.features.movies_list_screen.ui.adapter.MoviesAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
 

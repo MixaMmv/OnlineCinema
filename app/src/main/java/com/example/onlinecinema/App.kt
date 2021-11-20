@@ -2,6 +2,7 @@ package com.example.onlinecinema
 
 import android.app.Application
 import com.example.onlinecinema.di.appModule
+import com.example.onlinecinema.di.dataBaseModule
 import com.github.terrakok.cicerone.Cicerone
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -27,7 +28,7 @@ class App: Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(appModule)
+            modules(appModule, dataBaseModule)
         }
     }
 }

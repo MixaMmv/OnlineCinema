@@ -1,5 +1,7 @@
 package com.example.onlinecinema.di
 
+import androidx.room.Room
+import com.example.onlinecinema.MoviesDataBase
 import com.example.onlinecinema.data.api.MoviesApi
 import com.example.onlinecinema.data.api.MoviesRemoteSource
 import com.example.onlinecinema.data.api.MoviesRepository
@@ -11,6 +13,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -20,7 +23,8 @@ import retrofit2.create
 //GsonBuilder().setLenient().create()
 
 //const val BASE_URL = "https://gist.githubusercontent.com/LukyanovAnatoliy/"
-const val BASE_URL = "https://api.kinopoisk.cloud/"
+//const val BASE_URL = "https://api.kinopoisk.cloud/"
+const val BASE_URL = "https://raw.githubusercontent.com/MixaMmv/"
 
 val appModule = module {
 
@@ -56,6 +60,20 @@ val appModule = module {
 
     viewModel<MoviesListViewModel> {
         MoviesListViewModel(get<MoviesInteractor>())
+    }
+
+}
+
+const val DATA_BASE = "DATA_BASE"
+
+val dataBaseModule = module {
+    single {
+        Room.databaseBuilder(androidContext(), MoviesDataBase::class.java, DATA_BASE)
+            .fallbackToDestructiveMigration().build()
+    }
+
+    single {
+        get<MoviesDataBase>().moviesDAO()
     }
 
 }

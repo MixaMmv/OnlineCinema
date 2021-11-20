@@ -11,9 +11,9 @@ data class MoviesEntity(
     @ColumnInfo(name = "id")
     val id: Int,
     @ColumnInfo(name = "genres")
-    val genres: List<String>?,
-    @ColumnInfo(name = "id")
-    val actors: List<String>?,
+    val genres: String?,
+    @ColumnInfo(name = "actors")
+    val actors:String?,
     @ColumnInfo(name = "title_alternative")
     val title_alternative: String?,
     @ColumnInfo(name = "title")
@@ -21,7 +21,7 @@ data class MoviesEntity(
     @ColumnInfo(name = "year")
     val year: Int?,
     @ColumnInfo(name = "countries")
-    val countries: List<String>?,
+    val countries: String?,
     @ColumnInfo(name = "description")
     val description: String?,
     @ColumnInfo(name = "premiere_world")
