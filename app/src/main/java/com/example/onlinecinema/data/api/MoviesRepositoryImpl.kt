@@ -1,7 +1,5 @@
 package com.example.onlinecinema.data.api
 
-import com.example.onlinecinema.data.api.local.MoviesDAO
-import com.example.onlinecinema.data.api.model.Movies
 import com.example.onlinecinema.data.toDomain
 import com.example.onlinecinema.domain.model.MoviesDomainModel
 

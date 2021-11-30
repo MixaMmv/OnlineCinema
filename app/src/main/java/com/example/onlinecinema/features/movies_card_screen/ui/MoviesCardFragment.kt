@@ -9,7 +9,7 @@ import com.example.onlinecinema.R
 import com.example.onlinecinema.base.loadImage
 import com.example.onlinecinema.databinding.FragmentMoviesCardBinding
 import com.example.onlinecinema.domain.model.MoviesDomainModel
-import com.example.onlinecinema.features.movies_player_screen.ui.MoviesPlayerFragment
+import com.example.onlinecinema.features.movies_player_screen.ui.MoviesExoPlayerFragment
 
 class MoviesCardFragment : Fragment(R.layout.fragment_movies_card) {
 
@@ -41,11 +41,11 @@ class MoviesCardFragment : Fragment(R.layout.fragment_movies_card) {
             tvCardTitleAlternative.text = movie.title_alternative
             tvCardYear.text = movie.year.toString()
             tbCardTitle.title = movie.title
-//            tbCardTitle2.text = movie.title
+
 
             fabCard.setOnClickListener {
                 parentFragmentManager.beginTransaction()
-                    .replace(android.R.id.content, MoviesPlayerFragment.newInstance(movie))
+                    .replace(android.R.id.content, MoviesExoPlayerFragment.newInstance(movie))
                     .addToBackStack("movies")
                     .commit()
             }

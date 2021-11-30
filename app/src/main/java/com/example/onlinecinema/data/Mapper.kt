@@ -15,7 +15,12 @@ fun Movies.toDomain() = MoviesDomainModel(
     premiere_world = premiere_world,
     premiere_russia = premiere_russia,
     poster = "https:$poster",
-    trailer = trailer,
+    trailer = "http://techslides.com/demos/sample-videos/small.mp4",
+//    trailer = trailer,
     rating = rating
 )
 
+
+
+//    http://techslides.com/demos/sample-videos/small.mp4
+//    https://www.youtube.com/embed/5snjgB9PO48

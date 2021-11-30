@@ -26,3 +26,4 @@ sealed class DataEvent : Event {
 sealed class SingleEvent : Event {
     data class OpenMovieCard(val movie: MoviesDomainModel) : SingleEvent()
 }
+

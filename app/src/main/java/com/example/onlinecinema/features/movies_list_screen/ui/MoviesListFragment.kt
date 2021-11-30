@@ -55,7 +55,6 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
     private fun render(viewState: ViewState) {
         moviesAdapter.updateMovies(viewState.movies)
         viewBinding.pbLoading.isVisible = viewState.isLoading
-
     }
 
     private fun onSingleEvent(event: SingleEvent) {

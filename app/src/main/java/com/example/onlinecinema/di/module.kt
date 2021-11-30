@@ -1,16 +1,18 @@
 package com.example.onlinecinema.di
 
-import androidx.room.Room
-import com.example.onlinecinema.MoviesDataBase
 import com.example.onlinecinema.data.api.MoviesApi
 import com.example.onlinecinema.data.api.MoviesRemoteSource
 import com.example.onlinecinema.data.api.MoviesRepository
 import com.example.onlinecinema.data.api.MoviesRepositoryImpl
 import com.example.onlinecinema.domain.MoviesInteractor
 import com.example.onlinecinema.features.movies_list_screen.ui.MoviesListViewModel
+import com.example.onlinecinema.features.movies_player_screen.service.PlayerService
+import com.example.onlinecinema.features.movies_player_screen.service.PlayerSource
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.Player
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -59,18 +61,35 @@ val appModule = module {
         MoviesListViewModel(get<MoviesInteractor>())
     }
 
-}
-
-const val DATA_BASE = "DATA_BASE"
-
-val dataBaseModule = module {
-    single {
-        Room.databaseBuilder(androidContext(), MoviesDataBase::class.java, DATA_BASE)
-            .fallbackToDestructiveMigration().build()
+    single<PlayerService> {
+        PlayerService()
     }
 
-    single {
-        get<MoviesDataBase>().moviesDAO()
+
+}
+
+val playerModule = module {
+
+    factory<ExoPlayer> {
+        ExoPlayer.Builder(androidApplication()).build()
+    }
+
+    factory<PlayerSource> {
+        PlayerSource(get<MoviesRepository>())
     }
 
 }
+
+//const val DATA_BASE = "DATA_BASE"
+//
+//val dataBaseModule = module {
+//    single {
+//        Room.databaseBuilder(androidContext(), MoviesDataBase::class.java, DATA_BASE)
+//            .fallbackToDestructiveMigration().build()
+//    }
+//
+//    single {
+//        get<MoviesDataBase>().moviesDAO()
+//    }
+//
+//}

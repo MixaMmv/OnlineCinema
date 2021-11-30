@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">OnlineCinema</string>
-    <string name="favorite">Favorite</string>
+    <string name="favorite">Избранное</string>
     <string name="Actors">Актеры</string>
+    <string name="video_channel_id">Video</string>
+    <string name="channel_name">Video Channel</string>
 </resources>
