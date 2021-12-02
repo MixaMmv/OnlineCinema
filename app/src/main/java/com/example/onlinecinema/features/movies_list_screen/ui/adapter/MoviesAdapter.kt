@@ -9,16 +9,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.onlinecinema.R
 import com.example.onlinecinema.domain.model.MoviesDomainModel
-import com.example.onlinecinema.features.movies_list_screen.ui.UiEvent
 
 class MoviesAdapter(
     private var movies: List<MoviesDomainModel>,
-    private val onCardClick: (movies: MoviesDomainModel) -> Unit
+    private val onCardClick: (movies: MoviesDomainModel) -> Unit,
+
 ): RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.ivMovieCard)
         val title: TextView = view.findViewById(R.id.tvTitle)
+        val year: TextView = view.findViewById(R.id.tvYear)
         val genre: TextView = view.findViewById(R.id.tvGenre)
         val rating: TextView = view.findViewById(R.id.tvRating)
     }
@@ -32,12 +33,15 @@ class MoviesAdapter(
 
         Glide.with(holder.itemView).load(movies[position].poster).into(holder.image)
         holder.title.text = movies[position].title
+        holder.year.text = movies[position].year?.toString() ?: ""
         holder.genre.text = movies[position].genres?.get(0) ?: ""
         holder.rating.text = movies[position].rating
 
         holder.itemView.setOnClickListener{
             onCardClick(movies[position])
+
         }
+
     }
 
     override fun getItemCount() = movies.size

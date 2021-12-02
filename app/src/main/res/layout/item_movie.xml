@@ -17,7 +17,7 @@
             <ImageView
                 android:id="@+id/ivMovieCard"
                 android:layout_width="match_parent"
-                android:layout_height="194dp"
+                android:layout_height="300dp"
                 android:layout_margin="8dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_baseline_image_not_supported_24" />
@@ -40,17 +40,24 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="Title"
+            android:textAppearance="?attr/textAppearanceBody1" />
+        <TextView
+            android:id="@+id/tvYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Year"
             android:textAppearance="?attr/textAppearanceBody1" />
 
         <TextView
             android:id="@+id/tvGenre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="Genre"
-            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
             android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="?android:attr/textColorSecondary" />
 

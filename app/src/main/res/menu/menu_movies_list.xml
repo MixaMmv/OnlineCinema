@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/spanCount"
+        android:icon="@drawable/ic_baseline_123_24"
+        android:title="spanCount"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/sortList"
+        android:icon="@drawable/ic_baseline_sort_24"
+        android:title="sortList"
+        app:showAsAction="always">
+
+        <menu>
+            <group android:id="@+id/sortListMenu" >
+                <item android:id="@+id/sort1" android:title="По имени"/>
+                <item android:id="@+id/sort2" android:title="По году"/>
+                <item android:id="@+id/sort3" android:title="По рейтингу"/>
+            </group>
+        </menu>
+
+    </item>
+
+
+</menu>

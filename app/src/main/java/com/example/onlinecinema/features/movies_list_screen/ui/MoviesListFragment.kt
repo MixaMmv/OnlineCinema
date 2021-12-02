@@ -2,12 +2,11 @@ package com.example.onlinecinema.features.movies_list_screen.ui
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -34,39 +33,42 @@ class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_movies_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewBinding.vpMovies.adapter = moviesAdapter
+        viewBinding.tbMovies.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.spanCount -> moviesListViewModel.processUiEvent(UiEvent.OnSpanCountCLick)
+                R.id.sort1 -> moviesListViewModel.processUiEvent(UiEvent.OnSortButtonClick(0))
+                R.id.sort2 -> moviesListViewModel.processUiEvent(UiEvent.OnSortButtonClick(1))
+                R.id.sort3 -> moviesListViewModel.processUiEvent(UiEvent.OnSortButtonClick(2))
+            }
+            true
+        }
 
+        viewBinding.srRefresh.setOnRefreshListener {
+            moviesListViewModel.processUiEvent(UiEvent.GetMovies)
+        }
+
+        viewBinding.rvMovies.adapter = moviesAdapter
         moviesListViewModel.viewState.observe(viewLifecycleOwner, ::render)
-        moviesListViewModel.singleLiveEvent.observe(viewLifecycleOwner, ::onSingleEvent)
     }
+
 
     private fun render(viewState: ViewState) {
-        moviesAdapter.updateMovies(viewState.movies)
+        moviesAdapter.updateMovies(viewState.moviesSorted)
         viewBinding.pbLoading.isVisible = viewState.isLoading
-    }
-
-    private fun onSingleEvent(event: SingleEvent) {
-        when (event) {
-            is SingleEvent.OpenMovieCard -> {
-                Log.d("", "CLICKED")
-                parentFragmentManager.beginTransaction()
-                    .replace(android.R.id.content, MoviesCardFragment.newInstance(event.movie))
-                    .addToBackStack("movies")
-                    .commit()
-            }
-        }
+        (viewBinding.rvMovies.layoutManager as GridLayoutManager).spanCount = viewState.spanCount
+        viewBinding.srRefresh.isRefreshing = viewState.isLoading
     }
 
 }

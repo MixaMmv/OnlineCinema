@@ -8,6 +8,9 @@ import com.example.onlinecinema.domain.MoviesInteractor
 import com.example.onlinecinema.features.movies_list_screen.ui.MoviesListViewModel
 import com.example.onlinecinema.features.movies_player_screen.service.PlayerService
 import com.example.onlinecinema.features.movies_player_screen.service.PlayerSource
+import com.github.terrakok.cicerone.Cicerone
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.Player
 import okhttp3.OkHttpClient
@@ -58,7 +61,7 @@ val appModule = module {
     }
 
     viewModel<MoviesListViewModel> {
-        MoviesListViewModel(get<MoviesInteractor>())
+        MoviesListViewModel(get<MoviesInteractor>(), get<Router>())
     }
 
     single<PlayerService> {
@@ -67,6 +70,24 @@ val appModule = module {
 
 
 }
+
+val ciceroneModule = module {
+
+    single<Cicerone<Router>> {
+        Cicerone.create(Router())
+    }
+
+    single<NavigatorHolder> {
+        get<Cicerone<Router>>().getNavigatorHolder()
+    }
+
+    single<Router> {
+        get<Cicerone<Router>>().router
+    }
+
+}
+
+
 
 val playerModule = module {
 
