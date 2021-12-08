@@ -4,8 +4,10 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
+import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -53,59 +55,18 @@ class MoviesExoPlayerFragment : Fragment(R.layout.fragment_movies_player) {
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        hideSystemUi()
-
-    }
-
-    override fun onResume() {
-        super.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val intent = Intent(requireActivity(), PlayerService::class.java)
         intent.putExtra(VIDEO_FILE, movie)
         requireActivity().bindService(intent, connection, Context.BIND_AUTO_CREATE)
-        hideSystemUi()
-    }
 
-    override fun onPause() {
-        super.onPause()
-        showSystemUi()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        showSystemUi()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        requireActivity().unbindService(connection)
+        super.onViewCreated(view, savedInstanceState)
     }
 
 
-    private fun hideSystemUi() {
-        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, false)
-        WindowInsetsControllerCompat(
-            requireActivity().window,
-            viewBinding.pvMoviePlayer
-        ).let { controller ->
-            controller.hide(WindowInsetsCompat.Type.systemBars())
-            controller.systemBarsBehavior =
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
-    }
 
-    private fun showSystemUi() {
-        WindowCompat.setDecorFitsSystemWindows(
-            requireActivity().window,
-            true
-        )
 
-        WindowInsetsControllerCompat(
-            requireActivity().window,
-            viewBinding.pvMoviePlayer
-        ).show(WindowInsetsCompat.Type.systemBars())
-    }
+
 
 
 }

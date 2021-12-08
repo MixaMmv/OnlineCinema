@@ -11,7 +11,7 @@ import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
 
 class PlayerNotificationManager(
-    private val context: Context,
+    context: Context,
     sessionToken: MediaSessionCompat.Token,
     notificationListener: PlayerNotificationManager.NotificationListener,
     private val newPlayerCallback: () -> Unit

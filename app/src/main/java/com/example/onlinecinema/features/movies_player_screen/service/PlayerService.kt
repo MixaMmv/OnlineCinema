@@ -102,6 +102,7 @@ class PlayerService : MediaBrowserServiceCompat() {
 
     override fun onUnbind(intent: Intent?): Boolean {
         stopSelf()
+
         return super.onUnbind(intent)
     }
 
