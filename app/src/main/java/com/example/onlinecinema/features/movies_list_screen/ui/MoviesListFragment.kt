@@ -1,0 +1,74 @@
+package com.example.onlinecinema.features.movies_list_screen.ui
+
+import android.os.Bundle
+import android.util.Log
+import android.view.*
+import android.widget.ProgressBar
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.onlinecinema.R
+import com.example.onlinecinema.databinding.FragmentMoviesCardBinding
+import com.example.onlinecinema.databinding.FragmentMoviesListBinding
+import com.example.onlinecinema.features.movies_card_screen.ui.MoviesCardFragment
+import com.example.onlinecinema.features.movies_list_screen.ui.adapter.MoviesAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
+
+class MoviesListFragment : Fragment(R.layout.fragment_movies_list) {
+
+    companion object {
+        fun newInstance() = MoviesListFragment()
+    }
+
+    private val viewBinding: FragmentMoviesListBinding by viewBinding(FragmentMoviesListBinding::bind)
+
+    private val moviesListViewModel by viewModel<MoviesListViewModel>()
+    private val moviesAdapter: MoviesAdapter by lazy {
+        MoviesAdapter(movies = emptyList()) {
+            moviesListViewModel.processUiEvent(UiEvent.OnCardClick(it))
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        return inflater.inflate(R.layout.fragment_movies_list, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewBinding.tbMovies.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.spanCount -> moviesListViewModel.processUiEvent(UiEvent.OnSpanCountCLick)
+                R.id.sort1 -> moviesListViewModel.processUiEvent(UiEvent.OnSortButtonClick(0))
+                R.id.sort2 -> moviesListViewModel.processUiEvent(UiEvent.OnSortButtonClick(1))
+                R.id.sort3 -> moviesListViewModel.processUiEvent(UiEvent.OnSortButtonClick(2))
+            }
+            true
+        }
+
+        viewBinding.srRefresh.setOnRefreshListener {
+            moviesListViewModel.processUiEvent(UiEvent.GetMovies)
+        }
+
+        viewBinding.rvMovies.adapter = moviesAdapter
+        moviesListViewModel.viewState.observe(viewLifecycleOwner, ::render)
+    }
+
+
+    private fun render(viewState: ViewState) {
+        moviesAdapter.updateMovies(viewState.moviesSorted)
+        viewBinding.pbLoading.isVisible = viewState.isLoading
+        (viewBinding.rvMovies.layoutManager as GridLayoutManager).spanCount = viewState.spanCount
+        viewBinding.srRefresh.isRefreshing = viewState.isLoading
+    }
+
+}

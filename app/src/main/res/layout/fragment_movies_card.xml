@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/abCard"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/Widget.MaterialComponents.AppBarLayout.Primary">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/tbCardTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/CustomToolbarTheme"
+            app:collapsedTitleTextAppearance="@color/white_80"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@color/white_80"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title="CTLTEXT">
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tbCardTitle2"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:menu="@menu/menu_movie"
+                app:popupTheme="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
+                app:title="TOOLBARTEXT">
+
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivCard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="matrix"
+                android:foreground="@drawable/gradient"
+                android:src="@drawable/ic_baseline_image_not_supported_24"
+                app:layout_collapseMode="parallax" />
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black_100">
+
+
+            <TextView
+                android:id="@+id/tvCardRating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textAlignment="textEnd"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toStartOf="@+id/tvCardTitleAlternative"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Rating" />
+
+            <TextView
+                android:id="@+id/tvCardTitleAlternative"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textColor="@color/white_100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tvCardRating"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="TitleAlt" />
+
+            <TextView
+                android:id="@+id/tvCardYear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textAlignment="textEnd"
+                android:textColor="@color/grey_900"
+                app:layout_constraintEnd_toStartOf="@+id/tvCardGenres"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCardTitleAlternative"
+                tools:text="Yaer" />
+
+            <TextView
+                android:id="@+id/tvCardGenres"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textColor="@color/grey_900"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tvCardYear"
+                app:layout_constraintTop_toBottomOf="@id/tvCardTitleAlternative"
+                tools:text="Genres" />
+
+            <TextView
+                android:id="@+id/tvCardCountries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey_900"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCardGenres"
+                tools:text="Countries" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/tvCardCountries">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvCardDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        tools:text="Description" />
+
+                    <TextView
+                        android:id="@+id/tvCardPremierWorld"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        tools:text="Premier_world" />
+
+                    <TextView
+                        android:id="@+id/tvCardPremierRussia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        tools:text="Premier_russia" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:text="@string/Actors" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvActors"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="2"
+                        tools:listitem="@layout/item_actor" />
+
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:layout_marginTop="32dp"
+        android:text="Play Movie"
+        android:textAppearance="@style/Subtitle1"
+        android:textColor="?attr/colorAccented"
+        app:icon="@drawable/ic_baseline_play_arrow_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardMovieOverview" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
